@@ -29,8 +29,9 @@ The https://github.com/confluentinc/cp-helm-charts[Confluent Platform Helm Chart
 ----
 helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/   #<1>
 helm repo update    #<2>
-helm install confluentinc/cp-helm-charts --name my-confluent --version 0.5.0    #<3> or,
-helm install my-confluent confluentinc/cp-helm-charts  --version 0.5.0    #<3> (For Helm 3+)
+helm install my-confluent confluentinc/cp-helm-charts  --version 0.5.0    #<3> For helm 3+
+helm install confluentinc/cp-helm-charts --name my-confluent --version 0.5.0    #<3> (For prior version)
+
 ----
 <1> Add `confluentinc` helm charts repo
 <2> Update repo information 
@@ -153,8 +154,11 @@ Otherwise, helm will generate release name.
 
 [source,sh]
 ----
-helm install confluentinc/cp-helm-charts --name my-confluent-oss
+
+helm install my-confluent-oss confluentinc/cp-helm-charts # For Helm 3+,
+helm install confluentinc/cp-helm-charts --name my-confluent-oss # For prior version
 ----
+
 
 If you want to install without the Confluent Schema Registry instance, the REST Proxy instance, and the Kafka Connect worker:
 
@@ -280,7 +284,8 @@ The number of nodes should always be odd number.
 Install cp-helm-charts with default 3 node ensemble
 
 ----
-helm install cp-helm-charts
+helm install cp-helm-charts  --generate-name # For helm 3+,
+helm install cp-helm-charts  # For prior version
 ----
 
 Scale nodes up to 5, change `servers` under `cp-zookeeper` to 5 in `values.yaml`
@@ -327,8 +332,16 @@ JMX Metrics are enabled by default for all components, Prometheus JMX  Exporter 
 +
 [source,bash]
 ----
-helm install stable/prometheus
-helm install stable/grafana
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm install prometheus-community/prometheus --generate-name # For helm 3+
+helm install prometheus-community/prometheus # For prior verion
+----
+
+[source,bash]
+----
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install stable/grafana --generate-name # For helm 3+
+helm install stable/grafana # For prior verion
 ----
 
 . Add Prometheus as Data Source in Grafana, url should be something  like: `+http://illmannered-marmot-prometheus-server:9090+`
