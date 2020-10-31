@@ -29,7 +29,8 @@ The https://github.com/confluentinc/cp-helm-charts[Confluent Platform Helm Chart
 ----
 helm repo add confluentinc https://confluentinc.github.io/cp-helm-charts/   #<1>
 helm repo update    #<2>
-helm install confluentinc/cp-helm-charts --name my-confluent --version 0.5.0    #<3>
+helm install confluentinc/cp-helm-charts --name my-confluent --version 0.5.0    #<3> or,
+helm install my-confluent confluentinc/cp-helm-charts  --version 0.5.0    #<3> (For Helm 3+)
 ----
 <1> Add `confluentinc` helm charts repo
 <2> Update repo information 
